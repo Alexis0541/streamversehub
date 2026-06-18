@@ -1,0 +1,29 @@
+:root{
+  --bg:#0b0c0d;
+  --card:#111214;
+  --muted:#9aa0a6;
+  --accent:#e50914; /* Netflix red */
+  --glass: rgba(255,255,255,0.03);
+}
+body{background:var(--bg);color:#e6e7e8;font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;margin:0}
+.news-main{padding:2rem 0}
+.news-hero{padding:2rem 0;text-align:left}
+.news-hero h1{font-size:clamp(1.4rem,3vw,2.2rem);margin:0 0 .5rem}
+.news-hero .lead{color:var(--muted);margin:0 0 1rem}
+#newsSearch{width:100%;max-width:420px;padding:.6rem .8rem;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:var(--card);color:inherit}
+.latest{padding:1rem 0}
+.news-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem}
+.news-card{background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);border-radius:10px;overflow:hidden;transition:transform .18s ease,box-shadow .18s ease}
+.news-card:hover{transform:translateY(-6px);box-shadow:0 8px 30px rgba(0,0,0,0.6)}
+.card-body{padding:1rem}
+.card-title{margin:.2rem 0 .4rem;font-size:1.05rem}
+.card-title a{color:#fff;text-decoration:none}
+.card-meta{font-size:.82rem;color:var(--muted);margin:0 0 .6rem}
+.card-summary{color:var(--muted);font-size:.95rem;line-height:1.4;height:3.6rem;overflow:hidden}
+.read-more{color:var(--accent);text-decoration:none;font-weight:600}
+.source{background:var(--glass);padding:.1rem .4rem;border-radius:6px;margin-left:.4rem;color:#fff;font-size:.8rem}
+
+@media (max-width:600px){
+  .news-hero{padding:1rem}
+  .card-summary{height:auto}
+}
