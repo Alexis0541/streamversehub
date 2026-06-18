@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="StreamVerse Hub: streaming news, platform reviews, viewing guides, and privacy recommendations in English and Spanish.">
+  <meta name="theme-color" content="#080b12">
+  <title>StreamVerse Hub | Streaming & Entertainment Guide</title>
+  <style>
+    :root {
+      --bg: #080b12;
+      --surface: #101621;
+      --surface-2: #171e2b;
+      --text: #f7f8fb;
+      --muted: #a9b2c3;
+      --brand: #6ee7f2;
+      --brand-2: #8b5cf6;
+      --accent: #ffca5c;
+      --border: rgba(255, 255, 255, .1);
+      --shadow: 0 24px 70px rgba(0, 0, 0, .35);
+      --radius: 22px;
+      --max: 1180px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      min-width: 320px;
+      background:
+        radial-gradient(circle at 85% 5%, rgba(139, 92, 246, .16), transparent 30rem),
+        radial-gradient(circle at 10% 35%, rgba(110, 231, 242, .09), transparent 28rem),
+        var(--bg);
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.6;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    button, input, textarea { font: inherit; }
+    button { color: inherit; }
+    img { max-width: 100%; }
+    section { scroll-margin-top: 88px; }
+    .container { width: min(calc(100% - 40px), var(--max)); margin-inline: auto; }
+    .eyebrow {
+      color: var(--brand);
+      font-size: .76rem;
+      font-weight: 800;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+    }
+    .section { padding: 90px 0; }
+    .section-head { display: flex; align-items: end; justify-content: space-between; gap: 24px; margin-bottom: 32px; }
+    .section-head h2 { margin-top: 8px; font-size: clamp(2rem, 4vw, 3rem); line-height: 1.1; }
+    .section-head p { max-width: 540px; color: var(--muted); }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      border-bottom: 1px solid var(--border);
+      background: rgba(8, 11, 18, .84);
+      backdrop-filter: blur(16px);
+    }
+    .nav-wrap { min-height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .brand { display: inline-flex; align-items: center; gap: 11px; font-size: 1.05rem; font-weight: 850; letter-spacing: -.02em; }
+    .brand-mark {
+      width: 38px;
+      aspect-ratio: 1;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--brand), var(--brand-2));
+      color: #080b12;
+      box-shadow: 0 8px 30px rgba(110, 231, 242, .22);
+    }
+    .nav-links { display: flex; align-items: center; gap: 25px; list-style: none; }
+    .nav-links a { color: var(--muted); font-size: .92rem; font-weight: 700; transition: color .2s; }
+    .nav-links a:hover, .nav-links a:focus-visible { color: var(--text); }
+    .nav-actions { display: flex; align-items: center; gap: 10px; }
+    .language-switcher { display: flex; padding: 4px; border: 1px solid var(--border); border-radius: 99px; background: var(--surface); }
+    .language-switcher button {
+      min-width: 42px;
+      padding: 6px 10px;
+      border: 0;
+      border-radius: 99px;
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      font-size: .78rem;
+      font-weight: 800;
+    }
+    .language-switcher button.active { background: var(--text); color: var(--bg); }
+    .menu-toggle { display: none; border: 1px solid var(--border); background: var(--surface); border-radius: 10px; width: 42px; height: 42px; cursor: pointer; }
+
+    .hero { position: relative; min-height: 680px; display: grid; place-items: center; overflow: hidden; }
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba(8, 11, 18, .98) 5%, rgba(8, 11, 18, .72) 50%, rgba(8, 11, 18, .9)),
+        repeating-linear-gradient(115deg, transparent 0 85px, rgba(255, 255, 255, .025) 86px 87px);
+    }
+    .hero::after {
+      content: "SV";
+      position: absolute;
+      right: -3vw;
+      top: 50%;
+      transform: translateY(-50%);
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(255, 255, 255, .07);
+      font-size: min(38vw, 520px);
+      font-weight: 900;
+      line-height: .8;
+      letter-spacing: -.12em;
+    }
+    .hero-content { position: relative; z-index: 1; max-width: 820px; padding: 100px 0; }
+    .hero h1 { margin: 16px 0 22px; font-size: clamp(3.2rem, 8vw, 6.8rem); line-height: .93; letter-spacing: -.065em; }
+    .gradient-text { background: linear-gradient(90deg, var(--brand), #fff 55%, #c4b5fd); background-clip: text; color: transparent; }
+    .hero-copy { max-width: 650px; color: var(--muted); font-size: clamp(1.05rem, 2vw, 1.25rem); }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 13px; margin-top: 34px; }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      padding: 13px 20px;
+      border: 1px solid transparent;
+      border-radius: 12px;
+      font-weight: 800;
+      transition: transform .2s, background .2s;
+    }
+    .button:hover { transform: translateY(-2px); }
+    .button-primary { background: var(--brand); color: #071015; }
+    .button-secondary { border-color: var(--border); background: rgba(255, 255, 255, .04); }
+    .trust-row { display: flex; flex-wrap: wrap; gap: 22px; margin-top: 50px; color: var(--muted); font-size: .88rem; }
+    .trust-row span { display: inline-flex; align-items: center; gap: 8px; }
+    .trust-row span::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--brand); box-shadow: 0 0 12px var(--brand); }
+
+    .platform-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    .platform-card {
+      position: relative;
+      min-height: 250px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--surface);
+      box-shadow: var(--shadow);
+      transition: transform .25s, border-color .25s;
+    }
+    .platform-card:hover { transform: translateY(-6px); border-color: rgba(255, 255, 255, .25); }
+    .platform-card::after { content: ""; position: absolute; width: 170px; height: 170px; right: -60px; bottom: -75px; border-radius: 50%; filter: blur(2px); opacity: .25; }
+    .platform-card.netflix::after { background: #e50914; }
+    .platform-card.disney::after { background: #2774ff; }
+    .platform-card.max::after { background: #9d4edd; }
+    .platform-card.prime::after { background: #00a8e1; }
+    .platform-logo { font-size: 1.4rem; font-weight: 900; letter-spacing: -.04em; }
+    .platform-card p { color: var(--muted); font-size: .94rem; }
+    .card-link { color: var(--brand); font-size: .88rem; font-weight: 800; }
+
+    .articles-grid { display: grid; grid-template-columns: 1.35fr 1fr 1fr; gap: 18px; }
+    .article-card { border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; background: var(--surface); }
+    .article-visual { height: 180px; display: grid; place-items: center; background: linear-gradient(135deg, #172133, #253653); font-size: 3rem; }
+    .article-card.featured .article-visual { height: 260px; background: linear-gradient(135deg, #312e81, #0e7490); }
+    .article-body { padding: 23px; }
+    .tag { color: var(--brand); font-size: .72rem; font-weight: 850; letter-spacing: .1em; text-transform: uppercase; }
+    .article-body h3 { margin: 9px 0 10px; line-height: 1.25; }
+    .article-body p { color: var(--muted); font-size: .93rem; }
+
+    .vpn-panel {
+      display: grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 50px;
+      align-items: center;
+      padding: clamp(30px, 6vw, 70px);
+      border: 1px solid rgba(110, 231, 242, .22);
+      border-radius: 30px;
+      background: linear-gradient(135deg, rgba(110, 231, 242, .1), rgba(139, 92, 246, .12)), var(--surface);
+      box-shadow: var(--shadow);
+    }
+    .vpn-panel h2 { margin: 12px 0 17px; font-size: clamp(2rem, 4vw, 3.5rem); line-height: 1.05; }
+    .vpn-panel p { color: var(--muted); }
+    .vpn-points { display: grid; gap: 13px; margin: 28px 0; list-style: none; }
+    .vpn-points li::before { content: "✓"; margin-right: 10px; color: var(--brand); font-weight: 900; }
+    .vpn-score { display: grid; place-items: center; min-height: 290px; border: 1px solid var(--border); border-radius: 24px; background: rgba(8, 11, 18, .55); text-align: center; }
+    .vpn-score strong { display: block; color: var(--accent); font-size: 4.5rem; line-height: 1; }
+    .disclosure-note { margin-top: 18px; color: var(--muted); font-size: .75rem; }
+
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 70px; align-items: center; }
+    .about-grid h2 { margin: 10px 0 18px; font-size: clamp(2rem, 4vw, 3.5rem); line-height: 1.1; }
+    .about-grid p { color: var(--muted); }
+    .stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
+    .stat { padding: 25px; border: 1px solid var(--border); border-radius: 18px; background: var(--surface); }
+    .stat strong { display: block; color: var(--brand); font-size: 1.8rem; }
+    .stat span { color: var(--muted); font-size: .85rem; }
+
+    .contact-card { max-width: 760px; margin-inline: auto; padding: clamp(25px, 5vw, 50px); border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); }
+    .contact-card h2 { margin: 8px 0 10px; font-size: 2.4rem; }
+    .contact-card > p { color: var(--muted); margin-bottom: 25px; }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+    .field { display: grid; gap: 7px; }
+    .field.full { grid-column: 1 / -1; }
+    .field label { font-size: .82rem; font-weight: 800; }
+    .field input, .field textarea { width: 100%; padding: 13px 15px; border: 1px solid var(--border); border-radius: 10px; outline: none; background: #0b1019; color: var(--text); }
+    .field input:focus, .field textarea:focus { border-color: var(--brand); }
+    .field textarea { min-height: 130px; resize: vertical; }
+    .form-grid .button { justify-self: start; cursor: pointer; }
+
+    footer { padding: 48px 0 30px; border-top: 1px solid var(--border); background: #06080d; }
+    .footer-top { display: flex; justify-content: space-between; gap: 35px; padding-bottom: 35px; }
+    .footer-copy { max-width: 430px; color: var(--muted); font-size: .9rem; margin-top: 12px; }
+    .footer-links { display: flex; flex-wrap: wrap; align-items: start; gap: 20px; color: var(--muted); font-size: .88rem; font-weight: 700; }
+    .footer-bottom { padding-top: 25px; border-top: 1px solid var(--border); color: #727d90; font-size: .8rem; }
+
+    .modal { position: fixed; inset: 0; z-index: 100; display: none; place-items: center; padding: 20px; background: rgba(0, 0, 0, .78); }
+    .modal.open { display: grid; }
+    .modal-content { width: min(100%, 720px); max-height: 82vh; overflow-y: auto; padding: 35px; border: 1px solid var(--border); border-radius: 20px; background: var(--surface-2); box-shadow: var(--shadow); }
+    .modal-content h2 { margin-bottom: 17px; }
+    .modal-content p { margin: 11px 0; color: var(--muted); }
+    .modal-close { float: right; border: 0; background: transparent; font-size: 1.6rem; cursor: pointer; }
+
+    @media (max-width: 960px) {
+      .nav-links { position: fixed; top: 77px; left: 20px; right: 20px; display: none; padding: 20px; flex-direction: column; align-items: stretch; border: 1px solid var(--border); border-radius: 16px; background: #101621; box-shadow: var(--shadow); }
+      .nav-links.open { display: flex; }
+      .menu-toggle { display: inline-grid; place-items: center; }
+      .platform-grid { grid-template-columns: repeat(2, 1fr); }
+      .articles-grid { grid-template-columns: 1fr 1fr; }
+      .article-card.featured { grid-column: 1 / -1; }
+      .vpn-panel, .about-grid { grid-template-columns: 1fr; }
+      .vpn-score { min-height: 220px; }
+    }
+
+    @media (max-width: 650px) {
+      .container { width: min(calc(100% - 28px), var(--max)); }
+      .section { padding: 65px 0; }
+      .brand span:last-child { display: none; }
+      .hero { min-height: 620px; }
+      .hero h1 { font-size: clamp(3rem, 17vw, 5rem); }
+      .section-head, .footer-top { align-items: start; flex-direction: column; }
+      .platform-grid, .articles-grid, .stats, .form-grid { grid-template-columns: 1fr; }
+      .article-card.featured { grid-column: auto; }
+      .field.full { grid-column: auto; }
+      .platform-card { min-height: 215px; }
+      .nav-actions { gap: 6px; }
+      .language-switcher button { min-width: 38px; padding-inline: 8px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a class="brand" href="#home" aria-label="StreamVerse Hub home">
+        <span class="brand-mark" aria-hidden="true">▶</span>
+        <span>StreamVerse Hub</span>
+      </a>
+
+      <nav aria-label="Primary navigation">
+        <ul class="nav-links" id="navLinks">
+          <li><a href="#home" data-i18n="navHome">Home</a></li>
+          <li><a href="platforms.html" data-i18n="navPlatforms">Platforms</a></li>
+          <li><a href="articles.html" data-i18n="navArticles">Articles</a></li>
+          <li><a href="vpn-guides.html" data-i18n="navVpn">VPN Guides</a></li>
+          <li><a href="#fire-tv-shop" data-i18n="navShop">Fire TV Shop</a></li>
+          <li><a href="about.html" data-i18n="navAbout">About</a></li>
+          <li><a href="contact.html" data-i18n="navContact">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <div class="language-switcher" aria-label="Language selector">
+          <button type="button" data-lang="en" aria-pressed="true">EN</button>
+          <button type="button" data-lang="es" aria-pressed="false">ES</button>
+        </div>
+        <button class="menu-toggle" id="menuToggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="container">
+        <div class="hero-content">
+          <p class="eyebrow" data-i18n="heroEyebrow">Watch smarter. Discover more.</p>
+          <h1>StreamVerse <span class="gradient-text">Hub</span></h1>
+          <p class="hero-copy" data-i18n="heroSubtitle">Your ultimate streaming & entertainment guide. Honest reviews, practical guides, and the best picks across every major platform.</p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="articles.html"><span data-i18n="exploreArticles">Explore articles</span> →</a>
+            <a class="button button-secondary" href="platforms.html" data-i18n="comparePlatforms">Compare platforms</a>
+          </div>
+          <div class="trust-row" aria-label="Site benefits">
+            <span data-i18n="benefitOne">Independent insights</span>
+            <span data-i18n="benefitTwo">Bilingual guides</span>
+            <span data-i18n="benefitThree">Updated recommendations</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="platforms">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow" data-i18n="platformEyebrow">Choose your screen</p>
+            <h2 data-i18n="platformTitle">Explore top platforms</h2>
+          </div>
+          <p data-i18n="platformIntro">Find reviews, release highlights, and practical tips for the streaming services you use every day.</p>
+        </div>
+        <div class="platform-grid">
+          <article class="platform-card netflix">
+            <span class="platform-logo">NETFLIX</span>
+            <p data-i18n="netflixCopy">Originals, global hits, hidden gems, and smarter ways to browse.</p>
+            <a class="card-link" href="platforms.html#netflix"><span data-i18n="viewGuides">View guides</span> →</a>
+          </article>
+          <article class="platform-card disney">
+            <span class="platform-logo">Disney+</span>
+            <p data-i18n="disneyCopy">Disney, Pixar, Marvel, Star Wars, and family viewing guides.</p>
+            <a class="card-link" href="platforms.html#disney"><span data-i18n="viewGuides">View guides</span> →</a>
+          </article>
+          <article class="platform-card max">
+            <span class="platform-logo">HBO MAX</span>
+            <p data-i18n="maxCopy">Prestige series, new movies, documentaries, and weekly picks.</p>
+            <a class="card-link" href="platforms.html#max"><span data-i18n="viewGuides">View guides</span> →</a>
+          </article>
+          <article class="platform-card prime">
+            <span class="platform-logo">prime video</span>
+            <p data-i18n="primeCopy">Amazon originals, channel add-ons, rentals, and hidden gems.</p>
+            <a class="card-link" href="platforms.html#prime"><span data-i18n="viewGuides">View guides</span> →</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="articles">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow" data-i18n="articlesEyebrow">Fresh from the hub</p>
+            <h2 data-i18n="articlesTitle">Latest articles</h2>
+          </div>
+          <p data-i18n="articlesIntro">Straightforward coverage to help you decide what to watch, where to watch it, and how to get more from your subscriptions.</p>
+        </div>
+        <div class="articles-grid">
+          <article class="article-card featured">
+            <div class="article-visual" aria-hidden="true">▶</div>
+            <div class="article-body">
+              <span class="tag" data-i18n="tagComparison">Comparison</span>
+              <h3 data-i18n="articleOneTitle">Which streaming service gives you the most value?</h3>
+              <p data-i18n="articleOneCopy">A practical framework for comparing catalogs, price, devices, and family features.</p>
+            </div>
+          </article>
+          <article class="article-card">
+            <div class="article-visual" aria-hidden="true">✦</div>
+            <div class="article-body">
+              <span class="tag" data-i18n="tagNews">Streaming news</span>
+              <h3 data-i18n="articleTwoTitle">What is new across the major platforms</h3>
+              <p data-i18n="articleTwoCopy">A quick look at notable premieres and returning favorites.</p>
+            </div>
+          </article>
+          <article class="article-card">
+            <div class="article-visual" aria-hidden="true">⚙</div>
+            <div class="article-body">
+              <span class="tag" data-i18n="tagGuide">Guide</span>
+              <h3 data-i18n="articleThreeTitle">Improve streaming quality on any device</h3>
+              <p data-i18n="articleThreeCopy">Simple fixes for buffering, low resolution, and connection issues.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="vpn">
+      <div class="container">
+        <div class="vpn-panel">
+          <div>
+            <p class="eyebrow" data-i18n="vpnEyebrow">Privacy guides</p>
+            <h2 data-i18n="vpnTitle">Understand privacy before choosing a VPN.</h2>
+            <p data-i18n="vpnCopy">Learn what VPN technology protects, what it cannot do, and which security features are worth reviewing before choosing any provider.</p>
+            <ul class="vpn-points">
+              <li data-i18n="vpnPointOne">Clear explanations without technical jargon</li>
+              <li data-i18n="vpnPointTwo">Practical privacy and security checklists</li>
+              <li data-i18n="vpnPointThree">Independent criteria for comparing providers</li>
+            </ul>
+            <a class="button button-primary" href="vpn-guides.html" data-i18n="vpnCta">Read privacy guides</a>
+          </div>
+          <div class="vpn-score">
+            <div>
+              <span class="eyebrow" data-i18n="privacyFirst">Privacy first</span>
+              <strong aria-hidden="true">🔒</strong>
+              <span data-i18n="learnBefore">Learn before you choose</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="about">
+      <div class="container about-grid">
+        <div>
+          <p class="eyebrow" data-i18n="aboutEyebrow">About StreamVerse Hub</p>
+          <h2 data-i18n="aboutTitle">Less searching. Better watching.</h2>
+          <p data-i18n="aboutCopy">We turn a crowded streaming world into clear, useful guidance. Our goal is to help English- and Spanish-speaking audiences choose services, discover entertainment, and stream more confidently.</p>
+        </div>
+        <div class="stats">
+          <div class="stat"><strong>2</strong><span data-i18n="statLanguages">Languages</span></div>
+          <div class="stat"><strong>4+</strong><span data-i18n="statPlatforms">Major platforms</span></div>
+          <div class="stat"><strong>100%</strong><span data-i18n="statPractical">Practical guides</span></div>
+          <div class="stat"><strong>24/7</strong><span data-i18n="statAccess">Free access</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="fire-tv-shop">
+      <div class="container">
+        <div class="vpn-panel">
+          <div>
+            <p class="eyebrow" data-i18n="shopEyebrow">Streaming devices</p>
+            <h2 data-i18n="shopTitle">Fire TV Stick with worldwide shipping.</h2>
+            <p data-i18n="shopCopy">Turn a compatible television into a practical streaming center. Contact us to confirm available models, price, shipping cost, delivery time, and compatibility for your country.</p>
+            <ul class="vpn-points">
+              <li data-i18n="shopPointOne">Worldwide shipping</li>
+              <li data-i18n="shopPointTwo">Personal assistance before purchasing</li>
+              <li data-i18n="shopPointThree">Model and compatibility confirmation</li>
+            </ul>
+            <a class="button button-primary" href="https://wa.me/593998514267?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20los%20equipos%20Fire%20TV%20Stick" target="_blank" rel="noopener"><span data-i18n="shopCta">Buy via WhatsApp</span> →</a>
+            <p class="disclosure-note"><span data-i18n="shopPhone">Contact:</span> +593 998 514 267</p>
+          </div>
+          <div class="vpn-score">
+            <div>
+              <span class="eyebrow" data-i18n="shopDelivery">Worldwide delivery</span>
+              <strong aria-hidden="true">📺</strong>
+              <span>Fire TV Stick</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="contact">
+      <div class="container">
+        <div class="contact-card">
+          <p class="eyebrow" data-i18n="contactEyebrow">Get in touch</p>
+          <h2 data-i18n="contactTitle">Contact us</h2>
+          <p data-i18n="contactCopy">Questions, corrections, or partnership ideas? Send us a message.</p>
+          <form class="form-grid" id="contactForm">
+            <div class="field">
+              <label for="name" data-i18n="nameLabel">Name</label>
+              <input id="name" name="name" type="text" autocomplete="name" required>
+            </div>
+            <div class="field">
+              <label for="email" data-i18n="emailLabel">Email</label>
+              <input id="email" name="email" type="email" autocomplete="email" required>
+            </div>
+            <div class="field full">
+              <label for="message" data-i18n="messageLabel">Message</label>
+              <textarea id="message" name="message" required></textarea>
+            </div>
+            <button class="button button-primary" type="submit" data-i18n="sendMessage">Send message</button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-top">
+        <div>
+          <a class="brand" href="#home"><span class="brand-mark" aria-hidden="true">▶</span><span>StreamVerse Hub</span></a>
+          <p class="footer-copy" data-i18n="footerCopy">Your ultimate streaming & entertainment guide.</p>
+        </div>
+        <div class="footer-links">
+          <a href="about.html" data-i18n="navAbout">About</a>
+          <a href="contact.html" data-i18n="navContact">Contact</a>
+          <a href="privacy.html" data-i18n="privacyPolicy">Privacy Policy</a>
+          <a href="affiliate-disclosure.html" data-i18n="affiliateDisclosure">Affiliate Disclosure</a>
+        </div>
+      </div>
+      <div class="footer-bottom">© <span id="year"></span> StreamVerse Hub. <span data-i18n="rights">All rights reserved.</span></div>
+    </div>
+  </footer>
+
+  <div class="modal" id="legalModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-content">
+      <button class="modal-close" type="button" aria-label="Close">×</button>
+      <div id="modalText"></div>
+    </div>
+  </div>
+
+  <script>
+    const translations = {
+      en: {
+        pageTitle: "StreamVerse Hub | Streaming & Entertainment Guide",
+        description: "StreamVerse Hub: streaming news, platform reviews, viewing guides, and privacy recommendations in English and Spanish.",
+        navHome: "Home", navPlatforms: "Platforms", navArticles: "Articles", navVpn: "VPN Guides", navShop: "Fire TV Shop", navAbout: "About", navContact: "Contact",
+        heroEyebrow: "Watch smarter. Discover more.",
+        heroSubtitle: "Your ultimate streaming & entertainment guide. Honest reviews, practical guides, and the best picks across every major platform.",
+        exploreArticles: "Explore articles", comparePlatforms: "Compare platforms",
+        benefitOne: "Independent insights", benefitTwo: "Bilingual guides", benefitThree: "Updated recommendations",
+        platformEyebrow: "Choose your screen", platformTitle: "Explore top platforms",
+        platformIntro: "Find reviews, release highlights, and practical tips for the streaming services you use every day.",
+        netflixCopy: "Originals, global hits, hidden gems, and smarter ways to browse.",
+        disneyCopy: "Disney, Pixar, Marvel, Star Wars, and family viewing guides.",
+        maxCopy: "Prestige series, new movies, documentaries, and weekly picks.",
+        primeCopy: "Amazon originals, channel add-ons, rentals, and hidden gems.", viewGuides: "View guides",
+        articlesEyebrow: "Fresh from the hub", articlesTitle: "Latest articles",
+        articlesIntro: "Straightforward coverage to help you decide what to watch, where to watch it, and how to get more from your subscriptions.",
+        tagComparison: "Comparison", tagNews: "Streaming news", tagGuide: "Guide",
+        articleOneTitle: "Which streaming service gives you the most value?",
+        articleOneCopy: "A practical framework for comparing catalogs, price, devices, and family features.",
+        articleTwoTitle: "What is new across the major platforms", articleTwoCopy: "A quick look at notable premieres and returning favorites.",
+        articleThreeTitle: "Improve streaming quality on any device", articleThreeCopy: "Simple fixes for buffering, low resolution, and connection issues.",
+        vpnEyebrow: "Privacy guides", vpnTitle: "Understand privacy before choosing a VPN.",
+        vpnCopy: "Learn what VPN technology protects, what it cannot do, and which security features are worth reviewing before choosing any provider.",
+        vpnPointOne: "Clear explanations without technical jargon", vpnPointTwo: "Practical privacy and security checklists", vpnPointThree: "Independent criteria for comparing providers",
+        vpnCta: "Read privacy guides", privacyFirst: "Privacy first", learnBefore: "Learn before you choose",
+        shopEyebrow: "Streaming devices", shopTitle: "Fire TV Stick with worldwide shipping.",
+        shopCopy: "Turn a compatible television into a practical streaming center. Contact us to confirm available models, price, shipping cost, delivery time, and compatibility for your country.",
+        shopPointOne: "Worldwide shipping", shopPointTwo: "Personal assistance before purchasing", shopPointThree: "Model and compatibility confirmation",
+        shopCta: "Buy via WhatsApp", shopPhone: "Contact:", shopDelivery: "Worldwide delivery",
+        aboutEyebrow: "About StreamVerse Hub", aboutTitle: "Less searching. Better watching.",
+        aboutCopy: "We turn a crowded streaming world into clear, useful guidance. Our goal is to help English- and Spanish-speaking audiences choose services, discover entertainment, and stream more confidently.",
+        statLanguages: "Languages", statPlatforms: "Major platforms", statPractical: "Practical guides", statAccess: "Free access",
+        contactEyebrow: "Get in touch", contactTitle: "Contact us", contactCopy: "Questions, corrections, or partnership ideas? Send us a message.",
+        nameLabel: "Name", emailLabel: "Email", messageLabel: "Message", sendMessage: "Send message",
+        footerCopy: "Your ultimate streaming & entertainment guide.", privacyPolicy: "Privacy Policy", affiliateDisclosure: "Affiliate Disclosure", rights: "All rights reserved.",
+        menuOpen: "Open menu", menuClose: "Close menu", formSuccess: "Thanks! Connect this form to your email or form provider before publishing.",
+        privacyTitle: "Privacy Policy", privacyText: "StreamVerse Hub may collect information you voluntarily submit through contact forms and anonymous technical data used to improve the site. We do not sell personal information. Third-party services and affiliate links may have their own privacy practices. Replace this starter policy with a policy tailored to the analytics, advertising, and form tools you actually use.",
+        affiliateTitle: "Affiliate Disclosure", affiliateText: "Some links on StreamVerse Hub are affiliate links. If you make a purchase through one of these links, we may receive a commission at no additional cost to you. Compensation does not determine our editorial opinions or recommendations. We aim to identify sponsored or affiliate links clearly."
+      },
+      es: {
+        pageTitle: "StreamVerse Hub | Guía de streaming y entretenimiento",
+        description: "StreamVerse Hub: noticias de streaming, reseñas de plataformas, guías y recomendaciones de privacidad en inglés y español.",
+        navHome: "Inicio", navPlatforms: "Plataformas", navArticles: "Artículos", navVpn: "Guías VPN", navShop: "Tienda Fire TV", navAbout: "Nosotros", navContact: "Contacto",
+        heroEyebrow: "Mira mejor. Descubre más.",
+        heroSubtitle: "Tu guía definitiva de streaming y entretenimiento. Reseñas honestas, guías prácticas y las mejores recomendaciones de cada plataforma.",
+        exploreArticles: "Explorar artículos", comparePlatforms: "Comparar plataformas",
+        benefitOne: "Análisis independientes", benefitTwo: "Guías bilingües", benefitThree: "Recomendaciones actualizadas",
+        platformEyebrow: "Elige tu pantalla", platformTitle: "Explora las mejores plataformas",
+        platformIntro: "Encuentra reseñas, estrenos destacados y consejos prácticos para los servicios de streaming que usas a diario.",
+        netflixCopy: "Originales, éxitos mundiales, joyas ocultas y mejores formas de explorar.",
+        disneyCopy: "Disney, Pixar, Marvel, Star Wars y guías para ver en familia.",
+        maxCopy: "Series de prestigio, películas nuevas, documentales y recomendaciones semanales.",
+        primeCopy: "Originales de Amazon, canales, alquileres y joyas ocultas.", viewGuides: "Ver guías",
+        articlesEyebrow: "Lo nuevo del hub", articlesTitle: "Últimos artículos",
+        articlesIntro: "Información clara para decidir qué ver, dónde verlo y cómo aprovechar mejor tus suscripciones.",
+        tagComparison: "Comparativa", tagNews: "Noticias de streaming", tagGuide: "Guía",
+        articleOneTitle: "¿Qué servicio de streaming ofrece más por tu dinero?",
+        articleOneCopy: "Un método práctico para comparar catálogos, precio, dispositivos y funciones familiares.",
+        articleTwoTitle: "Novedades en las principales plataformas", articleTwoCopy: "Un vistazo rápido a estrenos destacados y favoritos que regresan.",
+        articleThreeTitle: "Mejora la calidad del streaming en cualquier dispositivo", articleThreeCopy: "Soluciones sencillas para pausas, baja resolución y problemas de conexión.",
+        vpnEyebrow: "Guías de privacidad", vpnTitle: "Entiende la privacidad antes de elegir una VPN.",
+        vpnCopy: "Aprende qué protege la tecnología VPN, qué no puede hacer y qué funciones de seguridad conviene revisar antes de elegir cualquier proveedor.",
+        vpnPointOne: "Explicaciones claras sin tecnicismos", vpnPointTwo: "Listas prácticas de privacidad y seguridad", vpnPointThree: "Criterios independientes para comparar proveedores",
+        vpnCta: "Leer guías de privacidad", privacyFirst: "La privacidad primero", learnBefore: "Aprende antes de elegir",
+        shopEyebrow: "Equipos de streaming", shopTitle: "Fire TV Stick con envío mundial.",
+        shopCopy: "Convierte un televisor compatible en un práctico centro de streaming. Contáctanos para confirmar modelos disponibles, precio, costo de envío, plazo de entrega y compatibilidad para tu país.",
+        shopPointOne: "Envío mundial", shopPointTwo: "Asistencia personal antes de comprar", shopPointThree: "Confirmación de modelo y compatibilidad",
+        shopCta: "Comprar por WhatsApp", shopPhone: "Contacto:", shopDelivery: "Entrega mundial",
+        aboutEyebrow: "Sobre StreamVerse Hub", aboutTitle: "Menos búsqueda. Más entretenimiento.",
+        aboutCopy: "Convertimos un mundo de streaming saturado en orientación clara y útil. Ayudamos al público de habla inglesa y española a elegir servicios, descubrir contenido y disfrutar con más confianza.",
+        statLanguages: "Idiomas", statPlatforms: "Plataformas principales", statPractical: "Guías prácticas", statAccess: "Acceso gratuito",
+        contactEyebrow: "Hablemos", contactTitle: "Contáctanos", contactCopy: "¿Tienes preguntas, correcciones o propuestas de colaboración? Envíanos un mensaje.",
+        nameLabel: "Nombre", emailLabel: "Correo electrónico", messageLabel: "Mensaje", sendMessage: "Enviar mensaje",
+        footerCopy: "Tu guía definitiva de streaming y entretenimiento.", privacyPolicy: "Política de privacidad", affiliateDisclosure: "Aviso de afiliados", rights: "Todos los derechos reservados.",
+        menuOpen: "Abrir menú", menuClose: "Cerrar menú", formSuccess: "¡Gracias! Conecta este formulario con tu correo o proveedor de formularios antes de publicar.",
+        privacyTitle: "Política de privacidad", privacyText: "StreamVerse Hub puede recopilar la información que envíes voluntariamente mediante formularios de contacto y datos técnicos anónimos para mejorar el sitio. No vendemos información personal. Los servicios de terceros y enlaces de afiliados pueden tener sus propias prácticas de privacidad. Sustituye esta política inicial por una adaptada a las herramientas de analítica, publicidad y formularios que realmente utilices.",
+        affiliateTitle: "Aviso de afiliados", affiliateText: "Algunos enlaces de StreamVerse Hub son enlaces de afiliados. Si realizas una compra mediante uno de ellos, podemos recibir una comisión sin costo adicional para ti. La compensación no determina nuestras opiniones ni recomendaciones editoriales. Procuramos identificar claramente los enlaces patrocinados o de afiliados."
+      }
+    };
+
+    const languageButtons = document.querySelectorAll("[data-lang]");
+    const menuToggle = document.getElementById("menuToggle");
+    const navLinks = document.getElementById("navLinks");
+    const modal = document.getElementById("legalModal");
+    const modalText = document.getElementById("modalText");
+    let currentLanguage = localStorage.getItem("streamverse-language") || (navigator.language.startsWith("es") ? "es" : "en");
+
+    function setLanguage(language) {
+      currentLanguage = translations[language] ? language : "en";
+      const copy = translations[currentLanguage];
+      document.documentElement.lang = currentLanguage;
+      document.title = copy.pageTitle;
+      document.querySelector('meta[name="description"]').content = copy.description;
+      document.querySelectorAll("[data-i18n]").forEach((element) => {
+        const key = element.dataset.i18n;
+        if (copy[key]) element.textContent = copy[key];
+      });
+      languageButtons.forEach((button) => {
+        const selected = button.dataset.lang === currentLanguage;
+        button.classList.toggle("active", selected);
+        button.setAttribute("aria-pressed", selected);
+      });
+      menuToggle.setAttribute("aria-label", copy.menuOpen);
+      localStorage.setItem("streamverse-language", currentLanguage);
+    }
+
+    languageButtons.forEach((button) => button.addEventListener("click", () => setLanguage(button.dataset.lang)));
+
+    menuToggle.addEventListener("click", () => {
+      const isOpen = navLinks.classList.toggle("open");
+      menuToggle.setAttribute("aria-expanded", isOpen);
+      menuToggle.setAttribute("aria-label", translations[currentLanguage][isOpen ? "menuClose" : "menuOpen"]);
+      menuToggle.textContent = isOpen ? "×" : "☰";
+    });
+
+    navLinks.querySelectorAll("a").forEach((link) => link.addEventListener("click", () => {
+      navLinks.classList.remove("open");
+      menuToggle.setAttribute("aria-expanded", "false");
+      menuToggle.textContent = "☰";
+    }));
+
+    document.getElementById("contactForm").addEventListener("submit", (event) => {
+      event.preventDefault();
+      alert(translations[currentLanguage].formSuccess);
+    });
+
+    function openLegalModal(type) {
+      const copy = translations[currentLanguage];
+      const title = type === "privacy" ? copy.privacyTitle : copy.affiliateTitle;
+      const text = type === "privacy" ? copy.privacyText : copy.affiliateText;
+      modalText.innerHTML = `<h2 id="modalTitle">${title}</h2><p>${text}</p>`;
+      modal.classList.add("open");
+      document.body.style.overflow = "hidden";
+      modal.querySelector(".modal-close").focus();
+    }
+
+    document.querySelectorAll("[data-modal]").forEach((link) => link.addEventListener("click", (event) => {
+      event.preventDefault();
+      openLegalModal(link.dataset.modal);
+    }));
+    modal.querySelector(".modal-close").addEventListener("click", closeModal);
+    modal.addEventListener("click", (event) => { if (event.target === modal) closeModal(); });
+    document.addEventListener("keydown", (event) => { if (event.key === "Escape") closeModal(); });
+
+    function closeModal() {
+      modal.classList.remove("open");
+      document.body.style.overflow = "";
+    }
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+    setLanguage(currentLanguage);
+  </script>
+</body>
+</html>
