@@ -70,7 +70,7 @@ def gather_entries():
 
 
 HTML_TEMPLATE = """<!doctype html>
-<html lang="{lang}">
+<html lang="{lang}" data-title-en="Latest Streaming News – StreamVerse Hub" data-title-es="Últimas noticias de streaming – StreamVerse Hub">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -83,9 +83,10 @@ HTML_TEMPLATE = """<!doctype html>
   <link rel="stylesheet" href="/assets/site.css">
   <link rel="stylesheet" href="/assets/news.css">
   <script defer src="/assets/news.js"></script>
+  <script defer src="/assets/site.js"></script>
 </head>
 <body>
-<header class="header"><div class="container nav"><a class="brand" href="/index.html"><span class="mark">▶</span><span>StreamVerse Hub</span></a></div></header>
+<header class="header"><div class="container nav"><a class="brand" href="/index.html"><span class="mark">▶</span><span>StreamVerse Hub</span></a><nav><ul class="links"><li><a href="/index.html" data-en="Home" data-es="Inicio">Home</a></li><li><a href="/products.html" data-en="Devices" data-es="Equipos">Devices</a></li><li><a href="/platforms.html" data-en="App Guides" data-es="Guías de apps">App Guides</a></li><li><a href="/cybersecurity.html" data-en="Cybersecurity" data-es="Ciberseguridad">Cybersecurity</a></li><li><a href="/vpn-guides.html" data-en="VPN Guides" data-es="Guías VPN">VPN Guides</a></li><li><a href="/news/index.html" data-en="News" data-es="Noticias">News</a></li><li><a href="/articles.html" data-en="Articles" data-es="Artículos">Articles</a></li><li><a href="/about.html" data-en="About" data-es="Nosotros">About</a></li><li><a href="/contact.html" data-en="Contact" data-es="Contacto">Contact</a></li></ul></nav><div class="actions"><div class="langs"><button data-lang="en">EN</button><button data-lang="es">ES</button></div></div></div></header>
 <main class="news-main">
   <section class="news-hero container">
     <h1>{heading}</h1>
@@ -99,7 +100,7 @@ HTML_TEMPLATE = """<!doctype html>
     </div>
   </section>
 </main>
-<footer class="footer"><div class="container"><p>© {year} StreamVerse Hub</p></div></footer>
+<footer class="footer"><div class="container"><div class="footer-row"><a class="brand" href="/index.html"><span class="mark">▶</span><span>StreamVerse Hub</span></a><div class="footer-links"><a href="/products.html" data-en="Devices" data-es="Equipos">Devices</a><a href="/platforms.html" data-en="App Guides" data-es="Guías">Guides</a><a href="/cybersecurity.html" data-en="Cybersecurity" data-es="Ciberseguridad">Cybersecurity</a><a href="/vpn-guides.html" data-en="VPN Guides" data-es="Guías VPN">VPN Guides</a><a href="/news/index.html" data-en="News" data-es="Noticias">News</a><a href="/articles.html" data-en="Articles" data-es="Artículos">Articles</a><a href="/about.html" data-en="About" data-es="Nosotros">About</a><a href="/contact.html" data-en="Contact" data-es="Contacto">Contact</a></div></div><p>© {year} StreamVerse Hub</p></div></footer>
 </body>
 </html>
 """

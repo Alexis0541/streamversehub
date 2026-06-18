@@ -1,18 +1,29 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-title-en="Latest Streaming News – StreamVerse Hub" data-title-es="Últimas noticias de streaming – StreamVerse Hub">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Latest Streaming News – StreamVerse Hub</title>
-  <meta name="description" content="Daily streaming news aggregated from top entertainment sites.">
+  <meta name="description" content="A news landing page for streaming and device-related coverage from StreamVerse Hub.">
   <link rel="stylesheet" href="/assets/site.css">
   <link rel="stylesheet" href="/assets/news.css">
 </head>
 <body>
-  <main class="container">
-    <h1>Latest Streaming News</h1>
-    <p>Generating latest streaming news. If you see this page it will be replaced by the automated feed generator.</p>
-    <p><a href="/news/en/index.html">Open English news</a> · <a href="/news/es/index.html">Abrir noticias (ES)</a></p>
+  <header class="header"><div class="container nav"><a class="brand" href="/index.html"><span class="mark">▶</span><span>StreamVerse Hub</span></a><nav><ul class="links"><li><a href="/index.html" data-en="Home" data-es="Inicio">Home</a></li><li><a href="/products.html" data-en="Devices" data-es="Equipos">Devices</a></li><li><a href="/platforms.html" data-en="App Guides" data-es="Guías de apps">App Guides</a></li><li><a href="/cybersecurity.html" data-en="Cybersecurity" data-es="Ciberseguridad">Cybersecurity</a></li><li><a href="/vpn-guides.html" data-en="VPN Guides" data-es="Guías VPN">VPN Guides</a></li><li><a href="/news/index.html" data-en="News" data-es="Noticias">News</a></li><li><a href="/articles.html" data-en="Articles" data-es="Artículos">Articles</a></li><li><a href="/about.html" data-en="About" data-es="Nosotros">About</a></li><li><a href="/contact.html" data-en="Contact" data-es="Contacto">Contact</a></li></ul></nav><div class="actions"><div class="langs"><button data-lang="en">EN</button><button data-lang="es">ES</button></div><button class="menu">☰</button></div></div></header>
+  <main class="container news-main">
+    <section class="news-hero">
+      <h1>Latest Streaming News</h1>
+      <p class="lead">This page is updated automatically with the latest streaming and device coverage.</p>
+      <div class="news-actions"><input id="newsSearch" placeholder="Search news..." aria-label="Search news"></div>
+    </section>
+    <section class="container latest">
+      <h2>Waiting for the latest stories</h2>
+      <p class="lead">If the feed generator has not run yet, refresh this page later or visit an English or Spanish feed version.</p>
+      <p><a href="/news/en/index.html">Open English news</a> · <a href="/news/es/index.html">Abrir noticias (ES)</a></p>
+    </section>
   </main>
+  <footer class="footer"><div class="container"><div class="footer-row"><a class="brand" href="/index.html"><span class="mark">▶</span><span>StreamVerse Hub</span></a><div class="footer-links"><a href="/products.html" data-en="Devices" data-es="Equipos">Devices</a><a href="/platforms.html" data-en="App Guides" data-es="Guías">Guides</a><a href="/cybersecurity.html" data-en="Cybersecurity" data-es="Ciberseguridad">Cybersecurity</a><a href="/vpn-guides.html" data-en="VPN Guides" data-es="Guías VPN">VPN Guides</a><a href="/news/index.html" data-en="News" data-es="Noticias">News</a><a href="/articles.html" data-en="Articles" data-es="Artículos">Articles</a><a href="/privacy.html" data-en="Privacy" data-es="Privacidad">Privacy</a><a href="/contact.html" data-en="Contact" data-es="Contacto">Contact</a></div></div><p class="copyright">© <span data-year></span> StreamVerse Hub.</p></div></footer>
+  <script src="/assets/site.js"></script>
+  <script src="/assets/news.js"></script>
 </body>
 </html>
