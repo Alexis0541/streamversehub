@@ -14,3 +14,26 @@ document.querySelectorAll('[data-year]').forEach(el=>el.textContent=new Date().g
 document.querySelectorAll('[data-demo-form]').forEach(form=>form.addEventListener('submit',e=>{e.preventDefault();alert(lang==='es'?'Formulario listo para conectar con tu servicio de correo.':'Form ready to connect to your email service.')}));
 
 setLanguage(lang);
+
+// Inject a homepage-only nav link to the IPVanish landing page if not present
+(function(){
+	try{
+		const links = document.querySelector('.links');
+		if(!links) return;
+		const has = Array.from(links.querySelectorAll('a')).some(a=>a.getAttribute('href')==='ipvanish.html');
+		const cleaned = normalizePath(window.location.pathname);
+		const isIndex = cleaned === '/';
+		if(!has && isIndex){
+			const li = document.createElement('li');
+			const a = document.createElement('a');
+			a.setAttribute('href','ipvanish.html');
+			a.dataset.en = 'IPVanish';
+			a.dataset.es = 'IPVanish';
+			a.textContent = 'IPVanish';
+			li.appendChild(a);
+			// insert before About/Contact if possible, otherwise append
+			const aboutIdx = Array.from(links.children).findIndex(ch=>ch.textContent.trim().toLowerCase()==='about');
+			if(aboutIdx> -1) links.insertBefore(li, links.children[aboutIdx]); else links.appendChild(li);
+		}
+	}catch(e){}
+})();

@@ -1,3 +1,45 @@
+.ipvanish-card{background:linear-gradient(180deg, rgba(110,231,242,0.03), rgba(139,92,246,0.03));border:1px solid rgba(255,255,255,0.04);padding:22px;border-radius:14px;display:flex;flex-direction:column;gap:12px;align-items:flex-start}
+.ipvanish-card h3{margin:0;color:var(--text);font-size:1.4rem}
+.ipvanish-card p{margin:0;color:var(--muted)}
+.promo-actions{margin-top:8px}
+.ipvanish-card .button{background:linear-gradient(90deg,var(--brand),var(--violet));color:var(--bg);padding:10px 16px;border-radius:10px}
+.ipvanish-note{font-size:.85rem;color:var(--muted);margin-top:8px}
+@media (max-width:600px){.ipvanish-card{padding:16px}}
+
+/* Larger hero-style promo */
+.ipvanish-hero{display:grid;grid-template-columns:1fr 360px;gap:28px;align-items:center;padding:34px;border-radius:18px;background:linear-gradient(135deg, rgba(139,92,246,0.06), rgba(110,231,242,0.03));border:1px solid rgba(255,255,255,0.04)}
+.ipvanish-hero .hero-left h2{margin:0;font-size:clamp(1.6rem,2.4vw,2.4rem);color:var(--text)}
+.ipvanish-hero .hero-left p{color:var(--muted);margin-top:8px}
+.ipvanish-hero .benefits{display:flex;flex-direction:column;gap:8px;margin-top:14px}
+.benefit{display:flex;gap:12px;align-items:flex-start}
+.benefit .icon{width:42px;height:42px;border-radius:10px;display:grid;place-items:center;background:rgba(255,255,255,0.03);font-size:1.15rem}
+.benefit .text{color:var(--muted)}
+.ipvanish-hero .hero-right{display:flex;flex-direction:column;gap:12px;align-items:stretch}
+.ipvanish-hero .hero-right .button{display:block;text-align:center;padding:14px;border-radius:12px;font-weight:900}
+.ipvanish-hero .learn-link{display:inline-block;margin-top:6px;color:var(--brand);font-weight:800}
+
+/* Benefit cards for landing page */
+.benefits-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin-top:26px}
+.benefit-card{padding:20px;border-radius:14px;background:var(--surface2);box-shadow:0 6px 18px rgba(2,6,23,0.6);border:1px solid rgba(255,255,255,0.02)}
+.benefit-card h4{margin:0 0 8px 0}
+.benefit-card p{color:var(--muted);margin:0}
+
+/* Comparison table */
+.compare{margin-top:26px;border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,0.03)}
+.compare .row{display:flex}
+.compare .cell{flex:1;padding:16px;background:var(--surface)}
+.compare .cell.heading{background:linear-gradient(90deg,rgba(110,231,242,0.03),rgba(139,92,246,0.03));font-weight:800}
+
+/* Final CTA big */
+.final-cta{margin-top:36px;padding:34px;border-radius:18px;background:linear-gradient(90deg,var(--brand),var(--violet));color:var(--bg);display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center}
+.final-cta h2{margin:0;font-size:clamp(1.6rem,3vw,2.4rem)}
+.final-cta p{margin:0;color:var(--bg)}
+.final-cta .button{background:var(--bg);color:var(--bg);padding:12px 20px;border-radius:12px}
+
+/* Visible affiliate note */
+.affiliate-note{margin-top:14px;font-size:.9rem;color:var(--muted);background:rgba(255,255,255,0.02);padding:10px;border-radius:10px}
+
+@media (max-width:900px){.ipvanish-hero{grid-template-columns:1fr;gap:18px}.ipvanish-hero .hero-right{order:2}.ipvanish-hero .hero-left{order:1}}
 /* IPVanish promotional card */
 .ipvanish-card{background:linear-gradient(180deg, rgba(110,231,242,0.03), rgba(139,92,246,0.03));border:1px solid rgba(255,255,255,0.04);padding:22px;border-radius:14px;display:flex;flex-direction:column;gap:12px;align-items:flex-start}
 .ipvanish-card h3{margin:0;color:var(--text);font-size:1.4rem}
